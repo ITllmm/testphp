@@ -1,0 +1,39 @@
+<!doctype html>
+ <html>
+      <head>
+          <style type="text/css">
+              html,body{
+                  height:100%;
+                  margin:0px;
+              }
+          </style>
+     </head>
+     <body style="height:100%;">
+         <div id="container" onclick="changeColor();" style="widht:100%; height:100%; background-color:rgb(204, 102, 0);">
+             click to change color
+         </div>
+         <script type="text/javascript">
+         //iframe接收消息，并把当前颜色发送给主页面呢
+             var container=document.getElementById('container');
+             var color=container.style.backgroundColor;
+             window.parent.postMessage(color,'*');
+             //  window.addEventListener('message',function(e){
+             //     if(e.source!=window.parent) return;
+             //     var color=container.style.backgroundColor;
+             //     window.parent.postMessage(color,'*');
+             // },false);
+
+              //当点击iframe事触发其变色方法，把最新颜色发送给主页面
+             function changeColor () {
+                 var color=container.style.backgroundColor;
+                 if(color=='rgb(204, 102, 0)'){
+                     color='rgb(204, 204, 0)';
+                                      }else{
+                     color='rgb(204,102,0)';
+                 }
+                 container.style.backgroundColor=color;
+                 window.parent.postMessage(color,'*'); //<main -> send data
+             }
+         </script>
+     </body>
+ </html>
